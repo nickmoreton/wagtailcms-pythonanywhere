@@ -1,0 +1,31 @@
+---
+- hosts: pythonanywhere
+
+  # For {{ vars }}: see docs/anisble.md
+
+  vars:
+    local_db_backup_dir: "database_dumps"
+
+  tasks:
+    ### LOCAL ###
+    - name: Ensure mysql container is up
+      delegate_to: localhost
+      community.docker.docker_compose:
+        project_src: "."
+        state: present
+
+    ### REMOTE ###
+    - name: Download the mysql dump file to a local folder ({{ local_db_backup_dir }})
+      fetch:
+        src: "{{ mysql_backup_path }}/{{ mysql_backup_file }}"
+        dest: "{{ local_db_backup_dir }}/"
+        flat: true
+        fail_on_missing: true
+
+    ### LOCAL ###
+    - name: Import the database dump file to the local mysql database
+      delegate_to: localhost
+      shell: |
+        docker-compose exec -T db bash -c \
+        "mysql -u root -pexample -h db app < \
+        ./{{ local_db_backup_dir }}/{{ mysql_backup_file }}"

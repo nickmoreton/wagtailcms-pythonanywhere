@@ -1,0 +1,12 @@
+[pythonanywhere]
+ssh.eu.pythonanywhere.com
+
+[pythonanywhere:vars]
+ansible_user=your_username
+app_path=full_path_to_your_app
+python=full_path_to_your_python_virtualenv
+repo=your_apps_https_repository
+wsgi_path=full_path_to_your_apps_wsgi_file
+mysql_backup_path=full_path_to_you_backups_directory
+mysql_backup_file=backup_file_name
+

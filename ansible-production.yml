@@ -1,0 +1,81 @@
+---
+- hosts: pythonanywhere
+
+  # For {{ vars }}: see docs/anisble.md
+
+  gather_facts: false
+
+  tasks:
+    ### LOCAL ###
+    - name: Ensure the containers are running
+      delegate_to: localhost # run on the local machine
+      community.docker.docker_compose:
+        project_src: "." # docker-compose location
+        state: present
+
+    - name: Uncommitted changes (check)
+      delegate_to: localhost
+      command: git status --porcelain
+      register: git_status
+      changed_when: git_status.stdout != ""
+      failed_when: git_status.stdout != ""
+
+    - name: Push to remote repo
+      delegate_to: localhost
+      command: git push --porcelain
+      register: git_push
+      changed_when: git_push.stdout.find("up to date") == -1
+      failed_when: git_push.stderr.find("rejected") != -1
+
+    - name: Ensure static and media folders exist
+      delegate_to: localhost
+      command: mkdir -p static media
+
+    - name: Collect static (check)
+      delegate_to: localhost
+      command: docker-compose exec -T app bash -c "python manage.py collectstatic --noinput"
+
+      register: collectstatic
+      failed_when: collectstatic.rc != 0
+      changed_when: collectstatic.stdout.find("unmodified") != -1 and collectstatic.stdout.find("0 static files copied") != -1
+
+    - name: Migrations (check)
+      delegate_to: localhost
+      command: docker-compose exec -T app bash -c "python manage.py makemigrations --dry-run --check"
+      register: makemigrations
+      changed_when: makemigrations.stdout.find("No changes detected") == -1
+      failed_when: makemigrations.stdout != "No changes detected"
+
+    - name: Test (check)
+      delegate_to: localhost
+      command: docker-compose exec -T app bash -c "python manage.py test"
+      register: tests
+      changed_when: tests.stdout.find("OK") != -1
+      failed_when: tests.stderr.find("FAILED") != -1
+
+    ### REMOTE ###
+    - name: Pull the web app from origin repository (deploy)
+      git:
+        repo: "{{ repo }}"
+        dest: "{{ app_path }}"
+        update: true
+
+    - name: Install dependencies to the virtual environment (deploy)
+      pip:
+        requirements: "{{ app_path }}/requirements.txt"
+        virtualenv: "{{ python }}"
+
+    - name: Run migrations (deploy)
+      django_manage:
+        command: migrate
+        app_path: "{{ app_path }}"
+        virtualenv: "{{ python }}"
+
+    - name: Collect static files (deploy)
+      django_manage:
+        command: collectstatic
+        app_path: "{{ app_path }}"
+        virtualenv: "{{ python }}"
+
+    - name: Restart the web app (deploy)
+      command: touch {{ wsgi_path }}
