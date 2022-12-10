@@ -20,6 +20,13 @@
       changed_when: git_status.stdout != ""
       failed_when: git_status.stdout != ""
 
+    - name: Ensure frontend is compiled
+      delegate_to: localhost
+      command: npm run build
+      register: npm_build
+      changed_when: npm_build.stdout.find("unchanged") == -1
+      failed_when: npm_build.stderr.find("ERROR") != -1
+
     - name: Push to remote repo
       delegate_to: localhost
       command: git push --porcelain

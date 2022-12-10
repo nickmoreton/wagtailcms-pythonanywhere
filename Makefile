@@ -63,3 +63,14 @@ mail-stop:
 	@echo "Stopping mail server"
 	@docker stop mailhog
 	@docker rm mailhog
+
+
+# frontend ########################################
+
+server:
+	@echo "Starting frontend server"
+	@npm run server
+
+build:
+	@echo "Building frontend"
+	@npm run build

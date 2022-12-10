@@ -133,3 +133,4 @@ local.py
 /media
 /database_dumps
 inventory
+node_modules
