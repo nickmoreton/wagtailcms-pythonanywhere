@@ -1,3 +1,10 @@
+# all
+
+initialise:
+	@make build
+	@make up
+	@make migrate
+
 # docker ########################################
 
 build:
@@ -33,9 +40,6 @@ dbimport:
 collectstatic:
 	@docker-compose exec app bash -c "./manage.py collectstatic --noinput"
 
-env-vars:
-	cp .env.example .env
-
 # ansible ########################################
 
 pull-db:
@@ -46,12 +50,6 @@ pull-media:
 
 prod-deploy:
 	@ansible-playbook ansible-production.yml -i inventory
-
-# all
-initial-all:
-	@make build
-	@make up
-	@make migrate
 
 # mail ########################################
 
