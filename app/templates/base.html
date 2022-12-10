@@ -1,5 +1,5 @@
-{% load static wagtailcore_tags wagtailuserbar %}
-
+{% load static wagtailcore_tags wagtailuserbar site_tags %}
+{% get_site_root as site_root %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,8 +31,26 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
+        <header>
+            <p class="logo">
+                <a href="/">Wagtail CMS</a>
+            </p>
+            <nav>
+                <ul>
+                {% top_menu parent=site_root calling_page=self as menu_items %}
+                {% for page in menu_items %}
+                    <li {% if page.active %} class="active"{% endif %}><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
+                </ul>
+            </nav>
+        </header>
 
+        <main>
         {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+        </footer>
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/script.min.js' %}"></script>

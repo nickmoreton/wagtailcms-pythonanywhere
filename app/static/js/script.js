@@ -2,7 +2,7 @@
 (function () {
 	'use strict';
 
-
+	console.log("Wagtail CMS is awesome!");
 
 })();
 //# sourceMappingURL=script.js.map

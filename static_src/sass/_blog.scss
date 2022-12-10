@@ -1,0 +1,38 @@
+.template-blogindexpage {
+    h2 {
+        border-top: 1px solid #333;
+        float: left;
+        clear: both;
+        width: 100%;
+
+        &:before {
+            content: "";
+            display: block;
+            padding: 1rem;
+        }
+    }
+
+    img {
+        float: right;
+        display: block;
+        margin: -2rem 0 1rem 1rem;
+    }
+
+    p {
+        clear: left;
+    }
+}
+
+.template-blogpage {
+    .tags {
+        button {
+            background-color: rgb(27, 169, 133);
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 0.5rem 0.5rem 0;
+            padding: 0.5rem;
+        }
+    }
+}
