@@ -24,7 +24,6 @@ env = environ.Env(
 
 # # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-# DEBUG = env("DEBUG")
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(",")
 
