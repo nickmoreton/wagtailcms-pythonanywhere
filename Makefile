@@ -67,10 +67,10 @@ mail-stop:
 
 # frontend ########################################
 
-server:
+npm-server:
 	@echo "Starting frontend server"
 	@npm run server
 
-build:
+npm-build:
 	@echo "Building frontend"
 	@npm run build
