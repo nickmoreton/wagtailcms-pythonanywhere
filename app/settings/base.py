@@ -13,28 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-import environ
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
-
-env = environ.Env(
-    DEBUG=(bool, False),
-)
-
-# # Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-SECRET_KEY = env("DJANGO_SECRET_KEY")
-ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(",")
-
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND",
-    default="django.core.mail.backends.smtp.EmailBackend",
-)
-EMAIL_HOST = env("EMAIL_HOST", default="localhost")
-EMAIL_PORT = env("EMAIL_PORT", default=25)
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -100,8 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
-DATABASES = {"default": env.db()}
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -160,7 +138,7 @@ MEDIA_URL = "/media/"
 
 
 # Wagtail settings
-WAGTAIL_SITE_NAME = env.str("SITE_NAME", default="Wagtail CMS")
+WAGTAIL_SITE_NAME = ""  # set in local.py
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -173,4 +151,4 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 # Set this in the environment variables
-WAGTAILADMIN_BASE_URL = env.str("WAGTAILADMIN_BASE_URL")
+WAGTAILADMIN_BASE_URL = ""  # set in local.py
