@@ -3,15 +3,11 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/code/app
-      - ./media:/code/media
-      - ./static:/code/static
-      - ./database_dumps:/database_dumps
-      - ./.env:/code/.env
+      - ./:/app
     command: tail -f /dev/null
     depends_on:
       db:

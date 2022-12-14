@@ -42,14 +42,14 @@ collectstatic:
 
 # ansible ########################################
 
-pull-db:
-	@ansible-playbook ansible-pull-db.yml -i inventory
+# pull-db:
+# 	@ansible-playbook ansible-pull-db.yml -i inventory
 
-pull-media:
-	@ansible-playbook ansible-pull-media.yml -i inventory
+# pull-media:
+# 	@ansible-playbook ansible-pull-media.yml -i inventory
 
-prod-deploy:
-	@ansible-playbook ansible-production.yml -i inventory
+# prod-deploy:
+# 	@ansible-playbook ansible-production.yml -i inventory
 
 # mail ########################################
 

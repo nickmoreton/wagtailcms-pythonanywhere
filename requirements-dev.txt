@@ -4,3 +4,4 @@ black==22.10.0
 flake8==6.0.0
 isort==5.10.1
 pre-commit==2.20.0
+fabric==2.7.1
