@@ -19,11 +19,6 @@ Development:
 - [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
 - [Fabric](https://www.fabfile.org) as a tool to manage and deploy your website.
 
-## Deployments
-
-- [Deploy to a free PA account](./docs/free_account.md)
-- [Deploy to a paid PA account](./docs/paid_account.md)
-
 ## Get Started
 
 - [Setup a site at PA](./docs/pa_setup.md)
@@ -38,3 +33,9 @@ Development:
 - create a superuser
 - install frontend 
 - run npm commands
+
+## Deployments
+
+- [Deploy to a free PA account](./docs/free_account.md)
+- [Deploy to a paid PA account](./docs/paid_account.md)
+
