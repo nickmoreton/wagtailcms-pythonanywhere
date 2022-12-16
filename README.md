@@ -13,14 +13,14 @@ You can develop it locally with the requirements below and if you have a paid Py
 - [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
 - [Fabric](https://www.fabfile.org) as a tool to manage and deploy your website.
 
-**Django management commands**
+### Django management commands
 
 | Command | Description |
 | ------- | ----------- |
 | `collectstatic` | Collect static at PythonAnywhere
 | `migrate` | Migrate at PythonAnywhere
 
-**Development utility commands**
+### Development utility commands
 
 | Command | Description |
 | ------- | ----------- |
@@ -31,7 +31,7 @@ You can develop it locally with the requirements below and if you have a paid Py
 | `pull-db` | Pull database from PythonAnywhere to development machine
 | `pull-media` | Pull media from PythonAnywhere to development machine
 
-**Deployment Commands**
+### Deployment Commands
 
 | Command | Description |
 | ------- | ----------- |
@@ -42,7 +42,9 @@ You can develop it locally with the requirements below and if you have a paid Py
 
 To see all available commands run `fab -l` in your development console.
 
-## Create a site in your PythonAnywhere account
+## Get Started
+
+### Create a site in your PythonAnywhere account
 
 General steps this guide follows:
 
